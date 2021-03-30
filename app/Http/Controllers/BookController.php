@@ -3,44 +3,68 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\BookCollection;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
-use App\Models\Author;
-
 class BookController extends Controller
 {
-    public static function add(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $book = new Book;
-        $book->title = $request->title;
-        $book->author_id = $request->author_id;
-        $book->description = $request->description;
-        $book->pages_nb = $request->pages_nb;
-        $book->publication_year = $request->publication_year;
-        $book->save();
-        $book->genres()->attach($request->genres);
-        return redirect('/list');
+        return new BookCollection(Book::all());
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $newBook = Book::addBook($request->all());
+
+        return response()->json($newBook,201);
     }
 
-    public static function delete(Request $request)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Book $book)
     {
-        $book = Book::find($request->id);
+        return new BookResource($book);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Book $book)
+    {
+        $updateBook = Book::updateBook($book, $request->all());
+
+        return response()->json($updateBook,200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Book $book)
+    {
         $book->genres()->detach();
         $book->delete();
-        //Book::destroy($request->id);
-        return redirect('/list');
+        return response()->json('',204);
     }
-
-    public static function update(Request $request)
-    {
-        $book = Book::find($request->id);
-        $book->title = $request->title;
-        $book->author_id = $request->author_id;
-        $book->description = $request->description;
-        $book->pages_nb = $request->pages_nb;
-        $book->genres()->sync($request->genres);
-        $book->publication_year = $request->publication_year;
-        $book->save();
-        return redirect('/list');
-    }
-
 }
