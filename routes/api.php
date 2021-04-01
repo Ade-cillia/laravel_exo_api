@@ -27,12 +27,12 @@ Route::fallback(function(){
     return response()->json('Url not found',404);
 });
 
-//Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function () {
     
     Route::resource('authors', AuthorController::class);
     Route::resource('books', BookController::class);
     Route::resource('genres', GenreController::class);
-//});
+});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

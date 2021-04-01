@@ -39,6 +39,12 @@
                         "in": "query",
                         "description": "search your results",
                         "required": false
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number request (integer)",
+                        "required": false
                     }
                 ],
                 "responses": {
@@ -257,6 +263,12 @@
                         "name": "search",
                         "in": "query",
                         "description": "search your results",
+                        "required": false
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number request (integer)",
                         "required": false
                     }
                 ],
@@ -526,6 +538,12 @@
                         "name": "search",
                         "in": "query",
                         "description": "search your results",
+                        "required": false
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number request (integer)",
                         "required": false
                     }
                 ],

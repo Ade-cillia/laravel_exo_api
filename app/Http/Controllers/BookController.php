@@ -48,6 +48,12 @@ class BookController extends Controller
      *          description="search your results",
      *          required=false,
      *      ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          description="Page number request (integer)",
+     *          required=false,
+     *      ),
      *      @OA\Response(
      *          response=404,
      *          description="not found"
@@ -120,8 +126,15 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $newBook = Book::addBook($request->all());
-        //Book_Genre::addBook_Genre($newBook, $request->all());
+        $validateInfo = $request ->validate([
+            "title" => "required|max:200",
+            "author_id" => "required|integer",
+            "description" => "required|max:500",
+            "publication_year" => "required|integer",
+            "pages_nb" => "required|integer",
+            "genre_id" => "required|array",
+        ]);
+        $newBook = Book::addBook($validateInfo);
         return response()->json($newBook,201);
     }
 
@@ -225,11 +238,23 @@ class BookController extends Controller
      *      ),
      *  )
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
-        $updateBook = Book::updateBook($book, $request->all());
-
-        return response()->json($updateBook,200);
+        $validateInfo = $request ->validate([
+            "title" => "required|max:200",
+            "author_id" => "required|integer",
+            "description" => "required|max:500",
+            "publication_year" => "required|integer",
+            "pages_nb" => "required|integer",
+            "genre_id" => "required|array",
+        ]);
+        $book = Book::find($id);
+        if ($book) {
+            $updateBook = Book::updateBook($book, $validateInfo);
+            return response()->json($updateBook,200);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
     }
 
     /**
@@ -269,10 +294,15 @@ class BookController extends Controller
      *      ),
      *  )
      */
-    public function destroy(Book $book)
+    public function destroy($id)
     {
-        $book->genres()->detach();
-        $book->delete();
-        return response()->json('',204);
+        $book = Book::find($id);
+        if ($book) {
+            $book->genres()->detach();
+            $book->delete();
+            return response()->json('',204);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
     }
 }

@@ -41,6 +41,12 @@ class GenreController extends Controller
      *          description="search your results",
      *          required=false,
      *      ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          description="Page number request (integer)",
+     *          required=false,
+     *      ),
      *      @OA\Response(
      *          response=404,
      *          description="not found"
@@ -104,7 +110,10 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        $newGenre = Genre::addGenre($request->all());
+        $validateInfo = $request ->validate([
+            "name" => "required|max:100",
+        ]);
+        $newGenre = Genre::addGenre($validateInfo);
 
         return response()->json($newGenre,201);
     }
@@ -205,11 +214,18 @@ class GenreController extends Controller
      *      ),
      *  )
      */
-    public function update(Request $request, Genre $genre)
+    public function update(Request $request, $id)
     {
-        $updateGenre = Genre::updateGenre($genre, $request->all());
-
-        return response()->json($updateGenre, 200);
+        $validateInfo = $request ->validate([
+            "name" => "required|max:100",
+        ]);
+        $genre = Genre::find($id);
+        if ($genre) {
+            $updateGenre = Genre::updateGenre($genre, $validateInfo);
+            return response()->json($updateGenre, 200);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
     }
 
     /**
@@ -250,9 +266,16 @@ class GenreController extends Controller
      *      ),
      *  )
      */
-    public function destroy(Genre $genre)
+    public function destroy($id)
     {
-        $genre->delete();
-        return response()->json('',204);
+        
+
+        $genre = Genre::find($id);
+        if ($genre) {
+            $genre->delete();
+            return response()->json('',204);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
     }
 }

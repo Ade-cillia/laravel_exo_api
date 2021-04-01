@@ -35,6 +35,12 @@ class AuthorController extends Controller
      *          description="search your results",
      *          required=false,
      *      ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          description="Page number request (integer)",
+     *          required=false,
+     *      ),
      * 
      *      @OA\Response(
      *          response=200,
@@ -103,7 +109,10 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $newAuthor = Author::addAuthor($request->all());
+        $validateInfo = $request ->validate([
+            "name" => "required|max:100",
+        ]);
+        $newAuthor = Author::addAuthor($validateInfo);
         
         return response()->json($newAuthor,201);
     }
@@ -203,10 +212,18 @@ class AuthorController extends Controller
      *      ),
      *  )
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $id)
     {
-        $updateAuthor = Author::updateAuthor($author, $request->all());
-        return response()->json($updateAuthor,200);
+        $validateInfo = $request ->validate([
+            "name" => "required|max:100",
+        ]);
+        $author = Author::find($id);
+        if ($author) {
+            $updateAuthor = Author::updateAuthor($author, $validateInfo);
+            return response()->json($updateAuthor,200);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
     }
 
     /**
@@ -247,9 +264,14 @@ class AuthorController extends Controller
      *      ),
      *  )
      */
-    public function destroy(Author $author)
+    public function destroy($id)
     {
-        $author->delete();
-        return response()->json('',204);
+        $author = Author::find($id);
+        if ($author) {
+            $author->delete();
+            return response()->json('',204);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
     }
 }
