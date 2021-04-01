@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController;
 use App\Http\Resources\BookCollection;
 use App\Http\Resources\GenreCollection;
 use App\Http\Resources\BookResource;
