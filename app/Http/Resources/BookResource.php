@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\GenreResource;
 class BookResource extends JsonResource
 {
     /**
@@ -21,7 +21,7 @@ class BookResource extends JsonResource
             "description" => $this->description,
             "pages_nb" => $this->pages_nb,
             "publication_year" => $this->publication_year,
-            "genres" => $this->genres,
+            "genres" => GenreResource::collection($this->genres),
         ];
     }
 }

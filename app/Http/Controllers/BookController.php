@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Resources\BookCollection;
+use App\Http\Resources\GenreCollection;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
+use App\Models\Book_Genre;
 class BookController extends Controller
 {
     /**
@@ -13,9 +14,21 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new BookCollection(Book::all());
+        $genreFilter = $request->query->get('genre');
+        if ($genreFilter) {
+            
+            $bookGenre = Book::whereHas('genres', function($query) use ($genreFilter){
+                $query->where('genres.id', '=', $genreFilter);
+            });
+            return new BookCollection($bookGenre->simplePaginate(10));
+        }else{
+            $data = $request->query->get('search');
+            $book = Book::where('title', 'like', "%{$data}%");
+            return new BookCollection($book->orderBy('title')->simplePaginate(10));
+        }    
+        
     }
     /**
      * Store a newly created resource in storage.
@@ -26,7 +39,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $newBook = Book::addBook($request->all());
-
+        //Book_Genre::addBook_Genre($newBook, $request->all());
         return response()->json($newBook,201);
     }
 
@@ -36,9 +49,15 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
+    public function show($id)
     {
-        return new BookResource($book);
+        $book = Book::find($id);
+        if ($book) {
+            return new BookResource($book);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
+        
     }
 
     /**

@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +19,19 @@ use App\Http\Controllers\BookController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::resource('authors', AuthorController::class);
 
-Route::resource('books', BookController::class);
+Route::post('register', [RegisterController::class, 'register']);
+Route::post('login', [RegisterController::class, 'login']);
 
+Route::fallback(function(){
+    return response()->json('Url not found',404);
+});
+
+Route::middleware('auth:api')->group(function () {
+    Route::resource('authors', AuthorController::class);
+    Route::resource('books', BookController::class);
+    Route::resource('genres', GenreController::class);
+});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\GenreCollection;
+use App\Http\Resources\GenreResource;
+use App\Models\Genre;
 
 class GenreController extends Controller
 {
@@ -11,19 +14,14 @@ class GenreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        
+        $data = $request->query->get('search');
+        $genre = Genre::where('name', 'like', "%{$data}%");
+        return new GenreCollection($genre->orderBy('name')->simplePaginate(10));
+        
+        
     }
 
     /**
@@ -34,7 +32,9 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newGenre = Genre::addGenre($request->all());
+
+        return response()->json($newGenre,201);
     }
 
     /**
@@ -45,18 +45,13 @@ class GenreController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        
+        $genre = Genre::find($id);
+        if ($genre) {
+            return new GenreResource($genre);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
     }
 
     /**
@@ -66,9 +61,11 @@ class GenreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Genre $genre)
     {
-        //
+        $updateGenre = Genre::updateGenre($genre, $request->all());
+
+        return response()->json($updateGenre, 200);
     }
 
     /**
@@ -77,8 +74,9 @@ class GenreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+        return response()->json('',204);
     }
 }

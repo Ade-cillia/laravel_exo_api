@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\AuthorCollection;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
+
 class AuthorController extends Controller
 {
     /**
@@ -13,9 +14,11 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new AuthorCollection(Author::all());
+        $data = $request->query->get('search');
+        $author = Author::where('name', 'like', "%{$data}%");
+        return new AuthorCollection($author->orderBy('name')->simplePaginate(10));
     }
     /**
      * Store a newly created resource in storage.
@@ -26,7 +29,7 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $newAuthor = Author::addAuthor($request->all());
-
+        
         return response()->json($newAuthor,201);
     }
 
@@ -36,9 +39,14 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show($id)
     {
-        return new AuthorResource($author);
+        $author = Author::find($id);
+        if ($author) {
+            return new AuthorResource($author);
+        }else{
+            return response()->json(['message' => 'ID not found',], 404);
+        }
         
     }
     /**
@@ -51,7 +59,6 @@ class AuthorController extends Controller
     public function update(Request $request, Author $author)
     {
         $updateAuthor = Author::updateAuthor($author, $request->all());
-
         return response()->json($updateAuthor,200);
     }
 

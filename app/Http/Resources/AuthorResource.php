@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\BookResource;
 
 class AuthorResource extends JsonResource
 {
@@ -17,7 +18,7 @@ class AuthorResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "books" => $this->books,
+            "books" => BookResource::collection($this->books),
         ];
     }
 }

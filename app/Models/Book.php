@@ -17,12 +17,14 @@ class Book extends Model
 
     public static function addBook($data){
         $book = new Book;
+        
         $book->title = $data['title'];
         $book->author_id = $data['author_id'];
         $book->description = $data['description'];
         $book->pages_nb = $data['pages_nb'];
         $book->publication_year = $data['publication_year'];
         $book->save();
+        $book->genres()->attach($data['genre_id']);
         return $book;
     }
     public static function updateBook($book, $data){
@@ -31,6 +33,7 @@ class Book extends Model
         $book->description = $data['description'];
         $book->pages_nb = $data['pages_nb'];
         $book->publication_year = $data['publication_year'];
+        $book->genres()->sync($data['genre_id']);
         $book->save();
         return $book;
     }

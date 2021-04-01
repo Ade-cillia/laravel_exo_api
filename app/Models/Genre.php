@@ -11,4 +11,17 @@ class Genre extends Model
     {
         return $this->belongsToMany(Book::class);
     }
+    public static function addGenre($data){
+        $genre = new Genre;
+        $genre->name = $data['name'];
+        $genre->save();
+
+        return $genre;
+    }
+    public static function updateGenre($genre, $data){
+        $genre->name = $data['name'];
+        $genre->save();
+
+        return  $genre;
+    }
 }
