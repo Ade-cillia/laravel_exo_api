@@ -21,7 +21,7 @@ class AuthorController extends Controller
 
      *      summary="Get all authors",
      *      description="Returns all authors",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="sort",
@@ -83,7 +83,7 @@ class AuthorController extends Controller
 
      *      summary="Create author",
      *      description="create author",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\RequestBody(
      *          required=true,
@@ -130,7 +130,7 @@ class AuthorController extends Controller
 
      *      summary="Get author by ID",
      *      description="Returns author by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -179,7 +179,7 @@ class AuthorController extends Controller
 
      *      summary="Update author by ID",
      *      description="Update author by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -239,7 +239,7 @@ class AuthorController extends Controller
 
      *      summary="Delete author by ID",
      *      description="Delete author by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",

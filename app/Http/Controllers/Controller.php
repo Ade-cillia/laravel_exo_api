@@ -30,7 +30,7 @@ class Controller extends BaseController
  *      securityScheme="bearerAuth",
  *      in="header",
  *      name="Authorization",
- *      type="apiKey",
+ *      type="http",
  *      scheme="Bearer",
  *      bearerFormat="JWT",
  * ),

@@ -22,7 +22,7 @@ class RegisterController extends BaseController
 
      *      summary="Register",
      *      description="create user",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\RequestBody(
      *          required=true,
@@ -30,9 +30,9 @@ class RegisterController extends BaseController
      *          @OA\JsonContent(
      *              required={"name","email","password","c_password"},
      *              @OA\Property(property="name", type="string", example="THIS IS A NAME"),
-     *              @OA\Property(property="email", type="string",format="email", example="email@mmmmmmmmmmmmaiiiiiiiiil.mail"),
-     *              @OA\Property(property="password", type="string",format="password", example="000_yes_its_true"),
-     *              @OA\Property(property="c_password", type="string",format="password", example="000_yes_its_true"),
+     *              @OA\Property(property="email", type="string",format="email", example="mail@mail.fr"),
+     *              @OA\Property(property="password", type="string",format="password", example="oui"),
+     *              @OA\Property(property="c_password", type="string",format="password", example="oui"),
      *          ),
      *      ),
      *      @OA\Response(
@@ -84,15 +84,15 @@ class RegisterController extends BaseController
 
      *      summary="Login",
      *      description="login",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\RequestBody(
      *          required=true,
      *          description="Pass user information",
      *          @OA\JsonContent(
      *              required={"email","password"},
-     *              @OA\Property(property="email", type="string",format="email", example="email@mmmmmmmmmmmmaiiiiiiiiil.mail"),
-     *              @OA\Property(property="password", type="string",format="password", example="000_yes_its_true"),
+     *              @OA\Property(property="email", type="string",format="email", example="mail@mail.fr"),
+     *              @OA\Property(property="password", type="string",format="password", example="oui"),
      *          ),
      *      ),
      *      @OA\Response(

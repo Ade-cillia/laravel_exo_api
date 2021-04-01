@@ -22,7 +22,7 @@ class BookController extends Controller
 
      *      summary="Get all books",
      *      description="Returns all books",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -95,7 +95,7 @@ class BookController extends Controller
 
      *      summary="Create book",
      *      description="create book",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\RequestBody(
      *          required=true,
@@ -150,7 +150,7 @@ class BookController extends Controller
 
      *      summary="Get book by ID",
      *      description="Returns book by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -200,7 +200,7 @@ class BookController extends Controller
 
      *      summary="Update book by ID",
      *      description="Update book by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -269,7 +269,7 @@ class BookController extends Controller
 
      *      summary="Delete book by ID",
      *      description="Delete book by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",

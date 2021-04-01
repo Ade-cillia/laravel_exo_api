@@ -60,7 +60,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -105,7 +105,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -142,7 +142,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -177,7 +177,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -233,7 +233,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -285,7 +285,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -360,7 +360,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -397,7 +397,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -432,7 +432,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -514,7 +514,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -560,7 +560,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -605,7 +605,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -642,7 +642,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -677,7 +677,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -733,7 +733,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -768,19 +768,19 @@
                                         "description": "Register api",
                                         "type": "string",
                                         "format": "email",
-                                        "example": "email@mmmmmmmmmmmmaiiiiiiiiil.mail"
+                                        "example": "mail@mail.fr"
                                     },
                                     "password": {
                                         "description": "Register api",
                                         "type": "string",
                                         "format": "password",
-                                        "example": "000_yes_its_true"
+                                        "example": "oui"
                                     },
                                     "c_password": {
                                         "description": "Register api",
                                         "type": "string",
                                         "format": "password",
-                                        "example": "000_yes_its_true"
+                                        "example": "oui"
                                     }
                                 },
                                 "type": "object"
@@ -801,7 +801,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -829,13 +829,13 @@
                                         "description": "Login api",
                                         "type": "string",
                                         "format": "email",
-                                        "example": "email@mmmmmmmmmmmmaiiiiiiiiil.mail"
+                                        "example": "mail@mail.fr"
                                     },
                                     "password": {
                                         "description": "Login api",
                                         "type": "string",
                                         "format": "password",
-                                        "example": "000_yes_its_true"
+                                        "example": "oui"
                                     }
                                 },
                                 "type": "object"
@@ -856,7 +856,7 @@
                 },
                 "security": [
                     {
-                        "scalar": "bearerAuth"
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -865,7 +865,7 @@
     "components": {
         "securitySchemes": {
             "bearerAuth": {
-                "type": "apiKey",
+                "type": "http",
                 "name": "Authorization",
                 "in": "header",
                 "bearerFormat": "JWT",

@@ -21,7 +21,7 @@ class GenreController extends Controller
 
      *      summary="Get all genres",
      *      description="Returns all genres",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -84,7 +84,7 @@ class GenreController extends Controller
 
      *      summary="Create genre",
      *      description="create genre",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\RequestBody(
      *          required=true,
@@ -131,7 +131,7 @@ class GenreController extends Controller
 
      *      summary="Get genre by ID",
      *      description="Returns genre by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -181,7 +181,7 @@ class GenreController extends Controller
 
      *      summary="Update genre by ID",
      *      description="Update genre by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -241,7 +241,7 @@ class GenreController extends Controller
 
      *      summary="Delete genre by ID",
      *      description="Delete genre by his id",
-     *      security={"bearerAuth"},
+     *      security={{"bearerAuth":{}}},
      * 
      *      @OA\Parameter(
      *          name="id",
