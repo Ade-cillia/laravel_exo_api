@@ -30,6 +30,12 @@ class GenreController extends Controller
      *          )
      *      ),
      *      @OA\Parameter(
+     *          name="sort",
+     *          in="query",
+     *          description="sort your results ('name' only)",
+     *          required=false,
+     *      ),
+     *      @OA\Parameter(
      *          name="search",
      *          in="query",
      *          description="search your results",
@@ -43,10 +49,18 @@ class GenreController extends Controller
      */
     public function index(Request $request)
     {
-        
-        $data = $request->query->get('search');
-        $genre = Genre::where('name', 'like', "%{$data}%");
-        return new GenreCollection($genre->orderBy('name')->simplePaginate(10));
+        $sort = $request->query->get('sort');
+        $search = $request->query->get('search');
+        $genre = new Genre;
+        if ($sort) {
+            if ($sort == "name") {
+                $genre = Genre::orderBy('name');
+            }
+        }
+        if($search){
+            $genre = $genre->where('name', 'like', "%{$search}%");
+        }
+        return new GenreCollection($genre->simplePaginate(10));
         
         
     }

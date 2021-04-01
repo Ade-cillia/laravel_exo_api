@@ -22,6 +22,20 @@ class AuthorController extends Controller
      *      summary="Get all authors",
      *      description="Returns all authors",
      *      security={"bearerAuth"},
+     * 
+     *      @OA\Parameter(
+     *          name="sort",
+     *          in="query",
+     *          description="sort your results ('name' only)",
+     *          required=false,
+     *      ),
+     *      @OA\Parameter(
+     *          name="search",
+     *          in="query",
+     *          description="search your results",
+     *          required=false,
+     *      ),
+     * 
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -37,9 +51,18 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $request->query->get('search');
-        $author = Author::where('name', 'like', "%{$data}%");
-        return new AuthorCollection($author->orderBy('name')->simplePaginate(10));
+        $sort = $request->query->get('sort');
+        $search = $request->query->get('search');
+        $author = new Author;
+        if ($sort) {
+            if ($sort == "name") {
+                $author = Author::orderBy('name');
+            }
+        }
+        if($search){
+            $author = $author->where('name', 'like', "%{$search}%");
+        }
+        return new AuthorCollection($author->simplePaginate(10));
     }
     /**
      * Store a newly created resource in storage.

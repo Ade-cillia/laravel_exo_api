@@ -27,6 +27,20 @@
                 "summary": "Get all authors",
                 "description": "Returns all authors",
                 "operationId": "getAllAuthor",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "sort your results ('name' only)",
+                        "required": false
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search your results",
+                        "required": false
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -230,13 +244,19 @@
                     {
                         "name": "sort",
                         "in": "query",
-                        "description": "sort your résults ('title' or 'pages_nb' only)",
+                        "description": "sort your results ('title' or 'pages_nb' only)",
+                        "required": false
+                    },
+                    {
+                        "name": "genre",
+                        "in": "query",
+                        "description": "Filter your results with a genre_id (integer)",
                         "required": false
                     },
                     {
                         "name": "search",
                         "in": "query",
-                        "description": "search your résults",
+                        "description": "search your results",
                         "required": false
                     }
                 ],
@@ -495,6 +515,20 @@
                 "summary": "Get all genres",
                 "description": "Returns all genres",
                 "operationId": "getAllGenres",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "sort your results ('name' only)",
+                        "required": false
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search your results",
+                        "required": false
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",

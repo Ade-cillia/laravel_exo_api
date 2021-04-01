@@ -37,6 +37,12 @@ class BookController extends Controller
      *          required=false,
      *      ),
      *      @OA\Parameter(
+     *          name="genre",
+     *          in="query",
+     *          description="Filter your results with a genre_id (integer)",
+     *          required=false,
+     *      ),
+     *      @OA\Parameter(
      *          name="search",
      *          in="query",
      *          description="search your results",
@@ -50,20 +56,26 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        $genreFilter = $request->query->get('genre');
-        $genreSearch = $request->query->get('search');
-        if ($genreFilter) {
-            
-            $book = Book::whereHas('genres', function($query) use ($genreFilter){
-                $query->where('genres.id', '=', $genreFilter);
+        $sort = $request->query->get('sort');
+        $genre = $request->query->get('genre'); //Filter
+        $search = $request->query->get('search');
+        $book = new Book;
+        if ($sort) {
+            if ($sort == "title") {
+                $book = Book::orderBy('title');
+            }elseif ($sort == "pages_nb") {
+                $book = Book::orderBy('pages_nb');
+            }
+        }
+        if ($genre) {
+            $book = $book->whereHas('genres', function($query) use ($genre){
+                $query->where('genres.id', '=', $genre);
             });
         }
-        if($genreSearch){
-            
-            $book = Book::where('title', 'like', "%{$genreSearch}%");
-            
-        }    
-        return new BookCollection($book->orderBy('title')->simplePaginate(10));
+        if($search){
+            $book = $book->where('title', 'like', "%{$search}%");
+        }
+        return new BookCollection($book->simplePaginate(10));
     }
     /**
      * Store a newly created resource in storage.
