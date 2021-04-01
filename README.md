@@ -20,8 +20,8 @@ php artisan migrate:fresh --seed
 
 ## 🤑🤑🤑🤑 Bonus 🤑🤑🤑🤑:
 - Swagger disponible : http://localhost/api/documentation
-- Autentification sur le swagger fonctionnelle (authentification via le token d'un user)
-- Validation des données pour chaque post/patch (store/update)
+- Autentification sur le swagger fonctionnelle (authentification via le token d'un user).
+- Validation des données pour chaque post/patch (store/update).
 
 
 #Bref ya tout 😋 
