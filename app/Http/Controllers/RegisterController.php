@@ -14,6 +14,40 @@ class RegisterController extends BaseController
      * Register api
      *
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\POST(
+     *      path="/register",
+     *      operationId="createUser",
+     *      tags={"CRUD_User"},
+
+     *      summary="Register",
+     *      description="create user",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass user information",
+     *          @OA\JsonContent(
+     *              required={"name","email","password","c_password"},
+     *              @OA\Property(property="name", type="string", example="THIS IS A NAME"),
+     *              @OA\Property(property="email", type="string",format="email", example="email@mmmmmmmmmmmmaiiiiiiiiil.mail"),
+     *              @OA\Property(property="password", type="string",format="password", example="000_yes_its_true"),
+     *              @OA\Property(property="c_password", type="string",format="password", example="000_yes_its_true"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful created",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function register(Request $request)
     {
@@ -42,6 +76,38 @@ class RegisterController extends BaseController
      * Login api
      *
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\POST(
+     *      path="/login",
+     *      operationId="login",
+     *      tags={"CRUD_User"},
+
+     *      summary="Login",
+     *      description="login",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass user information",
+     *          @OA\JsonContent(
+     *              required={"email","password"},
+     *              @OA\Property(property="email", type="string",format="email", example="email@mmmmmmmmmmmmaiiiiiiiiil.mail"),
+     *              @OA\Property(property="password", type="string",format="password", example="000_yes_its_true"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful created",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function login(Request $request)
     {

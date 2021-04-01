@@ -13,6 +13,33 @@ class GenreController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\GET(
+     *      path="/genres",
+     *      operationId="getAllGenres",
+     *      tags={"CRUD_Genre"},
+
+     *      summary="Get all genres",
+     *      description="Returns all genres",
+     *      security={"bearerAuth"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="search",
+     *          in="query",
+     *          description="search your results",
+     *          required=false,
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function index(Request $request)
     {
@@ -29,6 +56,37 @@ class GenreController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\POST(
+     *      path="/genres",
+     *      operationId="createGenre",
+     *      tags={"CRUD_Genre"},
+
+     *      summary="Create genre",
+     *      description="create genre",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass genre information",
+     *          @OA\JsonContent(
+     *              required={"name"},
+     *              @OA\Property(property="name", type="string", example="Hentai"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful created",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function store(Request $request)
     {
@@ -42,6 +100,38 @@ class GenreController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\GET(
+     *      path="/genres/{id}",
+     *      operationId="getGenreByID",
+     *      tags={"CRUD_Genre"},
+
+     *      summary="Get genre by ID",
+     *      description="Returns genre by his id",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="genre id",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Id not found"
+     *      ),
+     *  )
      */
     public function show($id)
     {
@@ -60,6 +150,46 @@ class GenreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\PATCH(
+     *      path="/genres/{id}",
+     *      operationId="updateGenreByID",
+     *      tags={"CRUD_Genre"},
+
+     *      summary="Update genre by ID",
+     *      description="Update genre by his id",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="genre id",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass genre information",
+     *          @OA\JsonContent(
+     *              required={"name"},
+     *              @OA\Property(property="name", type="string", example="NUUUUUUUUUUL"),
+     *          ),
+     *      ),
+     *      
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Id not found"
+     *      ),
+     *  )
      */
     public function update(Request $request, Genre $genre)
     {
@@ -73,6 +203,38 @@ class GenreController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\DELETE(
+     *      path="/genres/{id}",
+     *      operationId="deleteGenreByID",
+     *      tags={"CRUD_Genre"},
+
+     *      summary="Delete genre by ID",
+     *      description="Delete genre by his id",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="genre id",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      
+     *      @OA\Response(
+     *          response=204,
+     *          description="genre was deleted",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function destroy(Genre $genre)
     {

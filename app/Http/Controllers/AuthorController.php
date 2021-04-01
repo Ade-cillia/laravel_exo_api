@@ -13,6 +13,27 @@ class AuthorController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\GET(
+     *      path="/authors",
+     *      operationId="getAllAuthor",
+     *      tags={"CRUD_Author"},
+
+     *      summary="Get all authors",
+     *      description="Returns all authors",
+     *      security={"bearerAuth"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function index(Request $request)
     {
@@ -25,6 +46,37 @@ class AuthorController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\POST(
+     *      path="/authors",
+     *      operationId="createAuthor",
+     *      tags={"CRUD_Author"},
+
+     *      summary="Create author",
+     *      description="create author",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass author information",
+     *          @OA\JsonContent(
+     *              required={"name"},
+     *              @OA\Property(property="name", type="string", example="Rage vince"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful created",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function store(Request $request)
     {
@@ -38,6 +90,38 @@ class AuthorController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\GET(
+     *      path="/authors/{id}",
+     *      operationId="getAuthorByID",
+     *      tags={"CRUD_Author"},
+
+     *      summary="Get author by ID",
+     *      description="Returns author by his id",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="author id",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Id not found"
+     *      ),
+     *  )
      */
     public function show($id)
     {
@@ -55,6 +139,46 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\PATCH(
+     *      path="/authors/{id}",
+     *      operationId="updateAuthorByID",
+     *      tags={"CRUD_Author"},
+
+     *      summary="Update author by ID",
+     *      description="Update author by his id",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="author id",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass author information",
+     *          @OA\JsonContent(
+     *              required={"name"},
+     *              @OA\Property(property="name", type="string", example="Laisse Béton update"),
+     *          ),
+     *      ),
+     *      
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Id not found"
+     *      ),
+     *  )
      */
     public function update(Request $request, Author $author)
     {
@@ -67,6 +191,38 @@ class AuthorController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * @OA\DELETE(
+     *      path="/authors/{id}",
+     *      operationId="deleteAuthorByID",
+     *      tags={"CRUD_Author"},
+
+     *      summary="Delete author by ID",
+     *      description="Delete author by his id",
+     *      security={"bearerAuth"},
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="book id",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      
+     *      @OA\Response(
+     *          response=204,
+     *          description="authors was deleted",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="not found"
+     *      ),
+     *  )
      */
     public function destroy(Author $author)
     {

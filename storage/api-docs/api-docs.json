@@ -1,0 +1,827 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Aurélien",
+        "description": "C très Bo Whoulla",
+        "contact": {
+            "email": "admin9@fromage.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/authors": {
+            "get": {
+                "tags": [
+                    "CRUD_Author"
+                ],
+                "summary": "Get all authors",
+                "description": "Returns all authors",
+                "operationId": "getAllAuthor",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "CRUD_Author"
+                ],
+                "summary": "Create author",
+                "description": "create author",
+                "operationId": "createAuthor",
+                "requestBody": {
+                    "description": "Pass author information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "string",
+                                        "example": "Rage vince"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        },
+        "/authors/{id}": {
+            "get": {
+                "tags": [
+                    "CRUD_Author"
+                ],
+                "summary": "Get author by ID",
+                "description": "Returns author by his id",
+                "operationId": "getAuthorByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "author id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Id not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "CRUD_Author"
+                ],
+                "summary": "Delete author by ID",
+                "description": "Delete author by his id",
+                "operationId": "deleteAuthorByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "book id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "authors was deleted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "CRUD_Author"
+                ],
+                "summary": "Update author by ID",
+                "description": "Update author by his id",
+                "operationId": "updateAuthorByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "author id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass author information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "string",
+                                        "example": "Laisse Béton update"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Id not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        },
+        "/books": {
+            "get": {
+                "tags": [
+                    "CRUD_Book"
+                ],
+                "summary": "Get all books",
+                "description": "Returns all books",
+                "operationId": "getAllBooks",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "sort your résults ('title' or 'pages_nb' only)",
+                        "required": false
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search your résults",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "CRUD_Book"
+                ],
+                "summary": "Create book",
+                "description": "create book",
+                "operationId": "createBook",
+                "requestBody": {
+                    "description": "Pass book information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "author_id",
+                                    "description",
+                                    "pages_nb",
+                                    "publication_year",
+                                    "genre_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "string",
+                                        "example": "C'est un beau titre"
+                                    },
+                                    "author_id": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "number",
+                                        "example": "53"
+                                    },
+                                    "description": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "text",
+                                        "example": "Description"
+                                    },
+                                    "pages_nb": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "number",
+                                        "example": "206"
+                                    },
+                                    "publication_year": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "number",
+                                        "example": "1999"
+                                    },
+                                    "genre_id": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "number",
+                                        "example": "17"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        },
+        "/books/{id}": {
+            "get": {
+                "tags": [
+                    "CRUD_Book"
+                ],
+                "summary": "Get book by ID",
+                "description": "Returns book by his id",
+                "operationId": "getBookByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "book id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Id not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "CRUD_Book"
+                ],
+                "summary": "Delete book by ID",
+                "description": "Delete book by his id",
+                "operationId": "deleteBookByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "book id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Book was deleted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "CRUD_Book"
+                ],
+                "summary": "Update book by ID",
+                "description": "Update book by his id",
+                "operationId": "updateBookByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "book id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass book information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "author_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "string",
+                                        "example": "C'est un beau titre update"
+                                    },
+                                    "author_id": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "number",
+                                        "example": "54"
+                                    },
+                                    "description": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "text",
+                                        "example": "Description DE OUF"
+                                    },
+                                    "pages_nb": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "number",
+                                        "example": "666"
+                                    },
+                                    "publication_year": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "number",
+                                        "example": "1990"
+                                    },
+                                    "genre_id": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "number",
+                                        "example": "16"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Id not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        },
+        "/genres": {
+            "get": {
+                "tags": [
+                    "CRUD_Genre"
+                ],
+                "summary": "Get all genres",
+                "description": "Returns all genres",
+                "operationId": "getAllGenres",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "CRUD_Genre"
+                ],
+                "summary": "Create genre",
+                "description": "create genre",
+                "operationId": "createGenre",
+                "requestBody": {
+                    "description": "Pass genre information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Store a newly created resource in storage.",
+                                        "type": "string",
+                                        "example": "Hentai"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        },
+        "/genres/{id}": {
+            "get": {
+                "tags": [
+                    "CRUD_Genre"
+                ],
+                "summary": "Get genre by ID",
+                "description": "Returns genre by his id",
+                "operationId": "getGenreByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "genre id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Id not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "CRUD_Genre"
+                ],
+                "summary": "Delete genre by ID",
+                "description": "Delete genre by his id",
+                "operationId": "deleteGenreByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "genre id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "genre was deleted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "CRUD_Genre"
+                ],
+                "summary": "Update genre by ID",
+                "description": "Update genre by his id",
+                "operationId": "updateGenreByID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "genre id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass genre information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Update the specified resource in storage.",
+                                        "type": "string",
+                                        "example": "NUUUUUUUUUUL"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Id not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "CRUD_User"
+                ],
+                "summary": "Register",
+                "description": "create user",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "Pass user information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "c_password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Register api",
+                                        "type": "string",
+                                        "example": "THIS IS A NAME"
+                                    },
+                                    "email": {
+                                        "description": "Register api",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "email@mmmmmmmmmmmmaiiiiiiiiil.mail"
+                                    },
+                                    "password": {
+                                        "description": "Register api",
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "000_yes_its_true"
+                                    },
+                                    "c_password": {
+                                        "description": "Register api",
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "000_yes_its_true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "CRUD_User"
+                ],
+                "summary": "Login",
+                "description": "login",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Pass user information",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Login api",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "email@mmmmmmmmmmmmaiiiiiiiiil.mail"
+                                    },
+                                    "password": {
+                                        "description": "Login api",
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "000_yes_its_true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "Bearer"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
