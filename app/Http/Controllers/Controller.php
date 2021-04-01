@@ -35,6 +35,7 @@ class Controller extends BaseController
  *      bearerFormat="JWT",
  * ),
  *
+ * 
  */
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

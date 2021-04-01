@@ -192,7 +192,6 @@ return [
          * A null value here disables validation.
         */
         'validator_url' => null,
-        
         'constants' => [
 
             'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://my-default-host.com'),
